@@ -1,0 +1,89 @@
+/* CSS to flag some accessibility issues when content authors preview posts and pages. */
+
+/* Look for images with empty alt attributes, or links that open new windows.
+   These are cautions, as they might be valid things to do. */
+.logged-in img[alt=""],
+.logged-in a[target] {
+  outline: solid 3px gold;
+}
+
+/* Look for:
+1) links that have the title attribute
+2) images that have no alt attribute
+3) images that have the title attribute
+4) svg files that don't have role="img"
+5) inline svgs that don't have role="img" */
+.logged-in a[title],
+.logged-in img:not([alt]),
+.logged-in img[title],
+.logged-in img[src$=".svg"]:not([role="img"]),
+.logged-in svg:not([role="img"]) {
+  outline: solid 3px red;
+}
+
+/* Look for:
+1) empty headings
+2) empty links - note: ignores named anchors which are still valid
+3) empty buttons */
+.logged-in h1:empty, .logged-in h2:empty, .logged-in h3:empty,
+.logged-in h4:empty, .logged-in h5:empty, .logged-in h6:empty,
+.logged-in a:not([name]):empty,
+.logged-in button:empty {
+  display:block;
+  position:relative;
+  outline: solid 3px red;
+  min-width: 5em;
+  min-height: 1em;
+}
+
+/* Label the empty headings */
+.logged-in h1:empty::after, .logged-in h2:empty::after,
+.logged-in h3:empty::after, .logged-in h4:empty::after,
+.logged-in h5:empty::after, .logged-in h6:empty::after {
+  position: absolute;
+  outline: solid 3px red;
+  min-width: 10px;
+  min-height: 1em;
+  top: 0;
+  color: red;
+  content: "Empty Header";
+}
+
+/* Find empty table header cells - bad */
+.logged-in th:empty {
+  display:block;
+  position:relative;
+  outline: solid 3px red;
+  min-width: 5em;
+  min-height: 1em;
+}
+.logged-in th:empty::after {
+  position: absolute;
+  outline: solid 3px red;
+  min-width: 10px;
+  min-height: 1em;
+  top: 0;
+  color: red;
+  content: "Empty header cell";
+}
+
+/* Find empty table data cells - not quite so bad */
+.logged-in th:empty {
+  display:block;
+  position:relative;
+  outline: solid 3px gold;
+  min-width: 5em;
+  min-height: 1em;
+}
+.logged-in th:empty::after {
+  position: absolute;
+  outline: solid 3px gold;
+  min-width: 10px;
+  min-height: 1em;
+  top: 0;
+  color: gold;
+  content: "Empty data cell";
+}
+
+
+/* more stuff could be added here */
