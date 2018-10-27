@@ -19,3 +19,5 @@ Currently contains checks for:
 * empty headings
 * empty table header cells
 * empty table data cells
+
+Flags each element found with an outline. Where possible explains what the issue is on the page.
